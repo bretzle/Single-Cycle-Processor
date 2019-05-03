@@ -3,26 +3,26 @@ use ieee.std_logic_1164.all;
 
 entity controller is
 	port(
-		COND  : in std_logic_vector(3 downto 0);
-		OP    : in std_logic_vector(1 downto 0);
-		FUNCT : in std_logic_vector(5 downto 0);
-		ROT   : in std_logic_vector(3 downto 0);
-		C     : in std_logic;
-		V     : in std_logic;
-		N     : in std_logic;
-		Z     : in std_logic;
+		COND      : in std_logic_vector(3 downto 0);
+		OP        : in std_logic_vector(1 downto 0);
+		FUNCT     : in std_logic_vector(5 downto 0);
+		ROT       : in std_logic_vector(3 downto 0);
+		C         : in std_logic;
+		V     	 : in std_logic;
+		N     	 : in std_logic;
+		Z         : in std_logic;
 		
-		PCSRC   : out std_logic;
-		PCWR    : out std_logic;
-		REGDST  : out std_logic;
-		REGWR   : out std_logic;
-		EXTS    : out std_logic_vector(1 downto 0);
-		ALUSRCB : out std_logic;
-		ALUS    : out std_logic_vector(2 downto 0);
-		CPSRWR  : out std_logic;
-		MEMWR   : out std_logic;
-		REGSRC  : out std_logic;
-		ROTATE  : out std_logic_vector(3 downto 0)
+		PCSRC     : out std_logic;
+		PCWR      : out std_logic;
+		REGDST    : out std_logic;
+		REGWR     : out std_logic;
+		EXTS      : out std_logic_vector(1 downto 0);
+		ALUSRCB 	 : out std_logic;
+		ALUS      : out std_logic_vector(2 downto 0);
+		ALUFLAGWR : out std_logic;
+		MEMWR     : out std_logic;
+		REGSRC    : out std_logic;
+		ROTATE    : out std_logic_vector(3 downto 0)
 	);
 end entity controller;
 
@@ -76,8 +76,9 @@ begin
            "110" when OP="10" and COND = x"E" and BL = '1' else -- Pass B when BL
 			  "111"; 
 			  
-	CPSRWR <= '1' when S='1' and CMD=x"A" and OP="00" else -- cmp
-				 '0';
+	ALUFLAGWR <= '1' when CMD=x"A" 							   else -- cmp
+				    '1' when COND=x"E" and OP="00" and S='1' else -- S Extension
+				    '0';
 				 
 	MEMWR <= '1' when OP="01" and L='0' else			--str
 				'0';
