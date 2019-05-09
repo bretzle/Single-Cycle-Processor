@@ -32,15 +32,15 @@ use ieee.std_logic_1164.all;
 --* - ROM memories are simple truth tables
 --*********************************************************
 
-entity irom is 
+entity iromv3 is 
 	port(
 		A : in std_logic_vector(31 downto 0);
 		
 		RD: out std_logic_vector(31 downto 0)
 	);
-end entity irom;
+end entity iromv3;
 
-architecture dataflow of irom is
+architecture dataflow of iromv3 is
 begin
  
 	with A select RD <= 
