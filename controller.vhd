@@ -22,6 +22,7 @@ entity controller is
 		ALUSRCB 	 : out std_logic;
 		ALUS      : out std_logic_vector(3 downto 0);
 		ALUFLAGWR : out std_logic;
+		MEMRD     : out std_logic;
 		MEMWR     : out std_logic;
 		REGSRC    : out std_logic_vector(1 downto 0);
 		ROTATE    : out std_logic_vector(3 downto 0);
@@ -81,6 +82,9 @@ begin
 			  "0111"; 
 			  
 	ALUFLAGWR <= S when OP="00" else '0';        -- s
+	
+	MEMRD <= '1' when OP="01" and L='1'else 
+				'0';
 				 
 	MEMWR <= '1' when OP="01" and L='0' else		--str
 				'0';

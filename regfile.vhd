@@ -40,12 +40,12 @@ begin
   -- converts address nibbles into integer index for array
   process(RST,REGWR,CLK)
   begin
-    if rising_edge(CLK) then
-      if RST = '1' then 
-        for i in 0 to 15 loop 
+	 if RST='0' then 
+		for i in 0 to 15 loop 
           myregs(i) <= X"00000000";
-        end loop;	
-      elsif REGWR ='1' then 
+      end loop;	
+    elsif rising_edge(CLK) then
+      if REGWR ='1' then 
           myregs(to_integer(unsigned(A3))) <= WD3;
       end if;
     end if;

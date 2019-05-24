@@ -32,15 +32,15 @@ begin
 	Q1 <= S1;
 	Q0 <= S0;
 
-	process(D3,D2,D1,D0,LD,RST,CLK)
+	process(LD,RST,CLK)
 	begin
-		if rising_edge(CLK) then
-			if RST='1' then
-				S3 <= '0';
-				S2 <= '0';
-				S1 <= '0';
-				S0 <= '0';
-			elsif LD='1' then
+		if RST='0' then
+			S3 <= '0';
+			S2 <= '0';
+			S1 <= '0';
+			S0 <= '0';
+		elsif rising_edge(CLK) then
+			if LD='1' then
 				S3 <= D3;
 				S2 <= D2;
 				S1 <= D1;

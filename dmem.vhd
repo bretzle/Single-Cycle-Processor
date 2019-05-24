@@ -56,9 +56,13 @@ begin
   
   -- synchronous write update process
   -- simulating large memory that does not have reset
-  UPDATE: process(CLK,MEMWR)
+  UPDATE: process(CLK,MEMWR,RST)
   begin
-    if rising_edge(CLK) then 
+	 if RST='0' then
+	   for i in 0 to 31 loop 
+          MEMARRAY(i) <= X"00000000";
+      end loop;
+    elsif rising_edge(CLK) then 
       if MEMWR = '1' then 
          MEMARRAY(to_integer(unsigned(A))) <= WD;
       end if;
